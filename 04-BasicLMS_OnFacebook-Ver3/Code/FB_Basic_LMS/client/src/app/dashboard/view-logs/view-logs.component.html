@@ -1,0 +1,62 @@
+
+<mat-toolbar>
+    <mat-toolbar-row>
+        View Logs
+    </mat-toolbar-row>
+</mat-toolbar>
+    
+<mat-card class="main" *ngIf="loading">
+    <mat-spinner  style="margin-left: auto; margin-right: auto;"></mat-spinner>
+</mat-card>
+
+<div class="main">
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let day of logsPayload">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{day.date | date: 'MM/dd/yyyy'}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <table mat-table [dataSource]="day.logs" style="width: 100%;">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef> Time </th>
+                <td mat-cell *matCellDef="let element"> {{element.time | date: 'HH:mm:ss a'}} </td>
+            </ng-container>
+            
+            <!-- Name Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+            
+            
+            <!-- Weight Column -->
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef> User </th>
+                <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+            </ng-container>
+            
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Action ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="more">
+                <th mat-header-cell *matHeaderCellDef> More </th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="openMore(element.context)" mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+    </mat-expansion-panel>
+</mat-accordion>
+</div>

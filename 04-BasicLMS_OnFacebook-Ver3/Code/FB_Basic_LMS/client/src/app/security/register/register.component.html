@@ -1,0 +1,40 @@
+
+<mat-card>
+    <mat-card-title>
+        Student Registration
+    </mat-card-title>
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-top: 1rem; margin-right: auto;"></mat-spinner>
+    <form *ngIf="!loading" [formGroup]="registerForm">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input formControlName="fname" type="text" matInput required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>last Name</mat-label>
+                <input formControlName="lname" type="text" matInput required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" type="email" matInput required>
+            </mat-form-field>
+
+            <mat-form-field style="width: 30%; margin-right: 1%" appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="country">
+                    <mat-option *ngFor="let countryObj of getCountries()" value={{countryObj.name}}>{{countryObj.dial_code + " " + countryObj.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width: 69%;" appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input formControlName="phone" type="tel" matInput required>
+            </mat-form-field>
+            
+            <div>
+                <button (click)="register()" [disabled]="registerForm.invalid" type="submit" mat-raised-button color="primary">Register</button>
+            </div>
+        </form>
+    
+</mat-card>

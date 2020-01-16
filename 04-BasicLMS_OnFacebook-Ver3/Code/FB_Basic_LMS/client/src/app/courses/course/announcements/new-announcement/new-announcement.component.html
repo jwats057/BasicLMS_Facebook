@@ -1,0 +1,30 @@
+<h3 mat-dialog-title>New Announcement Editor</h3>
+<form [formGroup]="announcementForm">
+
+  <br>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Announcement End Date</mat-label>
+    <input matInput formControlName="date" [min]="today" [matDatepicker]="picker" placeholder="Choose an end date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Announcement Title</mat-label>
+    <input matInput type="text" formControlName="title" maxlength="100" required>
+    <mat-hint>The title of the new Announcement, must be under 100 characters long.</mat-hint>
+  </mat-form-field>
+
+  <div>
+    <mat-label><strong>Announcement Description:</strong></mat-label>
+    <angular-editor formControlName="description" [config]="config"></angular-editor>
+    <mat-error *ngIf="announcementForm.controls['description'].invalid">{{getDescriptionError()}}</mat-error>
+  </div>
+
+</form>
+<mat-dialog-actions>
+  <span class="fill"></span>
+  <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+  <button [disabled]="announcementForm.invalid" (click)="pushAnnouncement()" mat-raised-button color="primary">Create</button>
+</mat-dialog-actions>

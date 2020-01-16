@@ -1,0 +1,65 @@
+<!-- Discussion information and replying container -->
+<mat-card>
+
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+
+    <mat-card-header>
+        <mat-card-title>
+            {{title}}
+        </mat-card-title>
+    </mat-card-header>
+
+    <p [innerHTML]="this.description"></p>
+
+    <mat-nav-list >
+        <a (click)="openEditDiscussionDialog()" *ngIf="this.isAdmin()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Discussion</a>
+        <a *ngIf="!replying && !isClosed && !isLate()" mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
+    </mat-nav-list>
+
+    <div *ngIf="replying" >
+        <mat-card-content>
+                <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+        </mat-card-content>
+
+        <mat-card-actions class="controls">
+            <button [disabled]="isClosed || isPostEmpty()" (click)="pushPost()" mat-flat-button color='primary'>Submit</button>
+
+            <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
+        </mat-card-actions>
+    </div>
+    <br>
+
+</mat-card>
+
+<!-- List posts in card containers -->
+<mat-card *ngFor="let post of posts">
+    <mat-card-header>
+        <mat-card-title>{{post.user_name}}</mat-card-title>
+        <mat-card-subtitle>{{post.date | date: 'medium'}}</mat-card-subtitle>
+  </mat-card-header>
+    <p [innerHTML]="post.post"></p>
+</mat-card>
+
+
+<!-- Container for pagination navigation -->
+<mat-card>
+    <mat-toolbar>
+        <span>
+            <button [disabled]="!canBack()" (click)="firstPage()" mat-stroked-button color="primary"><mat-icon>first_page</mat-icon></button>
+        </span>
+
+        <span><button [disabled]="!canBack()" (click)="back()" mat-stroked-button color="primary">
+            <mat-icon>navigate_before</mat-icon>Back
+        </button></span>
+
+        <span class="fill"></span>
+
+        <span><button [disabled]="!canNext()" (click)="next()" mat-stroked-button color="primary">
+            Next<mat-icon>navigate_next</mat-icon>
+        </button></span>
+
+        <span>
+            <button [disabled]="!canNext()" (click)="lastPage()" mat-stroked-button color="primary"><mat-icon>last_page</mat-icon></button>
+        </span>
+    </mat-toolbar>
+</mat-card>

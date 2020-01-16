@@ -1,0 +1,61 @@
+.step-group {
+    height: 165px;
+    width: 390px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    //background-color: chartreuse;
+}
+
+.step {
+    //display: inline-flex;
+    float: left;
+}
+
+.spacer {
+    width: 130px;
+    height: 150px;
+    //display: inline-flex;
+    float: left;
+    //background-color: red;
+}
+
+.small-spacer {
+    width: 65px;
+    height: 150px;
+    float: left;
+    //display: inline-flex;
+    //background-color: blue;
+}
+
+mat-card {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* unvisited link */
+a:link {
+    color: black;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: black;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: darkgray;
+  }
+  
+  /* selected link */
+  a:active {
+    color: blue;
+  }

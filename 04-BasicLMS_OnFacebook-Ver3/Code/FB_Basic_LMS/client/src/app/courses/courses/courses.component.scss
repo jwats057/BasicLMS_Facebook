@@ -1,0 +1,41 @@
+mat-card {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    display: flex;
+    background-color: #c5dce9e0;
+}
+
+mat-card-header {
+    width: 200px;
+    min-width: 200px;
+}
+
+.content {
+    margin-bottom: 2rem;
+}
+
+mat-card-actions {
+    min-width: 150px;
+}
+
+button {
+    margin-left: 1rem;
+    float: right;
+    height: 100%;
+}
+
+md-list-item, md-list-item .md-list-item-inner {
+    min-height: 20px;
+    height: 25px;
+}
+
+mat-card-content {
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.mat-list-item{
+    max-height: 25px;
+}

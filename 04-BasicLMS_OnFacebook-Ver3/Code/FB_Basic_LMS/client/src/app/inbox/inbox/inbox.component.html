@@ -1,0 +1,45 @@
+<ng-container >
+<mat-toolbar>
+  <mat-toolbar-row style="background-color: #3f51b5; color: #fafafa;
+          border-bottom-style: solid; border-bottom-width: 1px;
+          border-bottom-color: black;">
+    <button mat-icon-button (click)="snav.toggle()"><h1>Inbox</h1></button>
+    <mat-icon style="padding-left: 15px">message</mat-icon>
+
+    <span class="fill"></span>
+
+    <span>
+      <button mat-button>
+        <a (click)="openConversationDialog()" mat-list-item class="add_button empty_message"><mat-icon inline>add</mat-icon>Compose Message</a>
+      </button>
+    </span>
+  </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class=container>
+    <mat-sidenav #snav mode="side" opened>
+    <mat-nav-list *ngFor="let conversation of conversations.reverse()">
+     <mat-list-item [routerLink]=""
+      [queryParams]="{conversation: conversation.id, select: 'Conversation', start: 0}"
+      (click)="onSetCurrentConversation(conversation)">
+       <mat-icon>message</mat-icon>
+        <p mat-line style="font-weight: bold">{{conversation.lastmessageusername}}  |  {{conversation.course_name}}</p>
+        <p mat-line>{{conversation.title}}</p>
+        <p mat-line style="font-style: italic">{{conversation.lastmessagedate | date: 'medium'}}</p>
+      </mat-list-item>
+    </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="course_viewer">
+
+      <div class="content">
+       <app-conversation *ngIf= "currentConversation"   [id]="currentConversation.id"
+                         [courseId]="currentConversation.courseId" [title]="currentConversation.title"
+       ></app-conversation>
+
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</ng-container>

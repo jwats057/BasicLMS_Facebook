@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Results</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h1>{{record.title}}</h1>
+       </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="text-align: center;">
+        <h1>Score: {{record.score}}/{{record.outOf}}</h1>
+        <h1>{{getPercent()}}%</h1>
+        <mat-progress-bar [color]="barColor" [value]="getPercent()"></mat-progress-bar>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" mat-raised [routerLink]="['/nav/courses/view-course']" [queryParams]="{course:course,select:'Home'}">Back to Course</button>
+    </mat-card-actions>
+</mat-card>

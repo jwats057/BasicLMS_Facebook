@@ -1,0 +1,24 @@
+<br>
+
+<form [formGroup]="newLinkForm">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Content Title</mat-label>
+        <input matInput formControlName="title" type="text" maxlength="100" required>
+        <mat-hint>Enter a descriptive title.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>External Link</mat-label>
+        <input matInput formControlName="link" type="text" required>
+        <mat-hint>Input link URL here, must start with http:// or https://.</mat-hint>
+    </mat-form-field>
+
+    <mat-dialog-actions> 
+        <span class="fill"></span>
+        <button type="button" (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+        <button type="button" [disabled]="newLinkForm.invalid || submitting" (click)="pushLink()" mat-raised-button color="primary">Create</button>
+    </mat-dialog-actions>
+
+</form>
+<br>

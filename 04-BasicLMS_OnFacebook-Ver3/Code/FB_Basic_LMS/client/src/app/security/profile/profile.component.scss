@@ -1,0 +1,88 @@
+#profile {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #727878;
+}
+
+#profile .row > div {
+  margin-bottom: 20px;
+}
+
+.mat-app-background{
+  background-color: white;
+  height: 100%;
+}
+
+header{
+  //background-color: lightblue;
+  height: 65px;
+  left: 5px;
+  font-size: 50px;
+  font-weight: 500;
+  top: 15px;
+  font-style: normal;
+}
+
+.dashboard-header{
+  background-color: lightblue;
+  height: 65px;
+}
+
+mat-card {
+  width: 80%;
+  height: 50%;
+  padding: 1rem;
+  background-color: #c5dce9e0;
+  padding: 1rem;
+  margin-top: 20px;
+  margin-left: 20px;
+  diplay: flex;
+  flex-flow: column;
+}
+
+.card-deck-container {
+  width: 100%;
+  position: relative;
+  border-radius: 2px;
+  padding: 10px 10px 30px;
+  margin: 10px 10px 10px 10px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-item {
+  padding: 3px 3px 3px 3px;
+}
+
+label{
+  display:block;
+  margin-top:20px;
+}
+
+input{
+  padding:8px;
+  border-radius: 5px;
+  width:350px;
+  font-size:16px;
+  margin-top:2px;
+  // margin-bottom:2px;
+}
+
+button{
+  background: white;
+  border-radius:5px;
+  font-weight: 500;
+  color:#181818;
+}

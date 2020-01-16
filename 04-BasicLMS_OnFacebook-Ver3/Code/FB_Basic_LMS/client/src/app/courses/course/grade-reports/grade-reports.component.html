@@ -1,0 +1,75 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Grade Reports</mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field>
+        <mat-label>Select Student</mat-label>
+        <mat-select [(ngModel)]="student">
+
+            <mat-option (click)="loadGrades()" *ngFor="let stud of students" value="{{stud.id}}">{{stud.lname + ", " + stud.fname}}</mat-option>
+            <mat-hint>Select student to view grades.</mat-hint>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+    <mat-card-content *ngIf="!loading">
+        <table mat-table [dataSource]="dataSource">
+
+            <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element">
+                        {{element.title}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef> Grade </td>
+            </ng-container>
+
+                <!-- Due Date Column -->
+            <ng-container matColumnDef="dueDate">
+                <th mat-header-cell *matHeaderCellDef> Due On </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.dueDate != null">{{element.dueDate | date: 'medium'}}</div>
+                    <div *ngIf="element.dueDate == null">No due date</div>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <!-- Done Date Column -->
+            <ng-container matColumnDef="doneOn">
+                <th mat-header-cell *matHeaderCellDef> Done On </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.doneOn != null">{{element.doneOn | date: 'medium'}}</div>
+                    <div *ngIf="element.doneOn == null"><mat-icon>minimize</mat-icon></div>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <!-- Score Column -->
+            <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef> Score </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.score != null">{{element.score}}</div>
+                    <div *ngIf="element.score == null"><mat-icon>minimize</mat-icon></div>
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <!-- Out Of Column -->
+            <ng-container matColumnDef="outOf">
+                <th mat-header-cell *matHeaderCellDef> Out Of </th>
+                <td mat-cell *matCellDef="let element"> {{element.outOf}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{getPercent() | percent}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+
+    </mat-card-content>
+</mat-card>

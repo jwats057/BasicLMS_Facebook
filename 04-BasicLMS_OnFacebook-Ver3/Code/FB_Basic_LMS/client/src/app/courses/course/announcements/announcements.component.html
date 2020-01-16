@@ -1,0 +1,29 @@
+<!-- Container for Announcement -->
+<mat-accordion>
+  <mat-expansion-panel  *ngFor='let announcement of Announcement.reverse()'>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="header">
+        <mat-icon>folder_open</mat-icon>
+        {{announcement.date.substr(0, 10) + '   |   ' + announcement.title}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+<!--   lists all Announcements and creates links to-->
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="['/nav/courses/view-course']"
+       [queryParams]="{course: current_course, select:'Announcements', announcement: announcement.id, start: 0}">
+      <p [innerHTML]="announcement.description"></p>
+    </a>
+  </mat-nav-list>
+  </mat-expansion-panel>
+
+  <div class="empty_message" *ngIf="1 > Announcement.length">
+    There are no Announcements.
+  </div>
+
+  <!-- Add Announcement button -->
+  <mat-nav-list *ngIf="this.isAdmin()">
+    <a (click)="openAnnouncementsDialog()" mat-list-item class="add_button empty_message">
+      <mat-icon>add</mat-icon>Add Announcement</a>
+  </mat-nav-list>
+</mat-accordion>

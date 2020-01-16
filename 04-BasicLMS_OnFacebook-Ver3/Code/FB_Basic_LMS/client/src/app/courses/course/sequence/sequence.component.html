@@ -1,0 +1,26 @@
+<mat-card>
+    <div class="modules" *ngFor="let module of modules">
+
+        <mat-card-title>
+            {{module.name}}
+        </mat-card-title>
+    
+        <div class="groups" *ngFor="let group of module.groups">
+            <div class="step-group">
+                <div class="spacer" *ngIf="2 > group.length"></div>
+                <div class="small-spacer" *ngIf="3 > group.length && group.length >= 2"></div>
+                <div class="step" *ngFor="let step of group">
+                    <a *ngIf="step.url != null" (click)="openInNewTab(step.url)"><app-step [icon]="'link'" [text]="step.title"></app-step></a>
+                    <a *ngIf="step.page != null" [routerLink]="['/nav/courses/view-course']"
+                    [queryParams]="{course: course, module: module.id, page_id: step.id, select: 'Page'}"><app-step [icon]="'insert_drive_file'" [text]="step.title"></app-step></a>
+                    <a *ngIf="step.outOf != null" (click)="openQuizDialog(module.id, step.id)"><app-step [icon]="'assessment'" [text]="step.title"></app-step></a>
+                    <a *ngIf="step.embedded != null"><app-step [icon]="'play_circle_filled'" [text]="step.title"></app-step></a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+    </div>
+</mat-card>

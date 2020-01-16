@@ -1,0 +1,40 @@
+<h3 *ngIf="current_module.id != null" mat-dialog-title>Module Editor</h3>
+<h3 *ngIf="current_module.id == null" mat-dialog-title>New Module</h3>
+
+<mat-spinner *ngIf="submitting" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+<form [formGroup]="moduleForm">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Module Name</mat-label>
+        <input matInput formControlName="title" type="text" maxlength="100" required>
+        <mat-hint>Enter a descriptive module title</mat-hint>
+    </mat-form-field>
+</form>
+<div *ngIf="current_module.id != null">
+<mat-list>
+    <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let content of current_module.resources">
+        <mat-icon *ngIf="content.url != null" mat-list-icon>link</mat-icon>
+        <mat-icon *ngIf="content.page != null" mat-list-icon>insert_drive_file</mat-icon>
+        <mat-icon *ngIf="content.outOf != null" mat-list-icon>assessment</mat-icon>
+        <mat-icon *ngIf="content.embedded != null" mat-list-icon>play_circle_filled</mat-icon>
+        <h4 mat-line>{{content.title}}</h4>
+        <button (click)="removeContent(content)" mat-icon-button color="warn"><mat-icon>remove_circle_outline</mat-icon></button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>
+<mat-nav-list>
+    <a (click)="openNewContentDialog()" ><mat-list-item>
+        <mat-icon mat-list-icon color="primary">add_circle</mat-icon>
+        <h4 mat-line>Add Content to Module</h4>
+    </mat-list-item></a>
+</mat-nav-list>
+</div>
+<mat-dialog-actions>
+    <span class="fill"></span>
+    <button type="button" (click)="onNoClick()" mat-raised-button>Cancel</button>
+    <button type="button" (click)="removeModule()" *ngIf="current_module.id != null" mat-raised-button color="warn">Remove Module</button>
+    <button [disabled]="submitting || moduleForm.invalid" type="submit" *ngIf="current_module.id != null" mat-raised-button color="primary">Update Module</button>
+    <button [disabled]="submitting || moduleForm.invalid" type="submit" (click)="createModule()" *ngIf="current_module.id == null" mat-raised-button color="primary">Create Module</button>
+</mat-dialog-actions>
+<br>

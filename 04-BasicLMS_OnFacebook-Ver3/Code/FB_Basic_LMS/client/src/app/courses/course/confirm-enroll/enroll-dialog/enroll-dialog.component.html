@@ -1,0 +1,25 @@
+<mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Fist Name</mat-label>
+    <input [disabled]="true" matInput [(ngModel)]="student.fname">
+</mat-form-field>
+
+<mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input [disabled]="true" matInput [(ngModel)]="student.lname">
+</mat-form-field>
+
+<mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input [disabled]="true" matInput [(ngModel)]="student.email">
+</mat-form-field>
+
+<mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Phone</mat-label>
+    <input [disabled]="true" matInput [(ngModel)]="student.phone">
+</mat-form-field>
+<mat-dialog-actions>
+    <span class="fill"></span>
+    <button (click)="onNoClick()" mat-raised-button>Cancel</button>
+    <button (click)="confirm()" color="primary" mat-raised-button>Confirm Enrollment</button>
+    <button (click)="remove()" color="warn" mat-raised-button>Remove</button>
+</mat-dialog-actions>

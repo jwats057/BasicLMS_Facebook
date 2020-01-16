@@ -1,0 +1,41 @@
+<ng-container >
+
+    <mat-toolbar>
+          <mat-toolbar-row style="background-color: #3f51b5; color: #fafafa;
+          border-bottom-style: solid; border-bottom-width: 1px;
+          border-bottom-color: black;">
+            <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+            {{course.name}}
+          </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-sidenav-container class=container>
+
+        <mat-sidenav class="size-nav" #snav mode="side" opened>
+            <mat-nav-list >
+                <a *ngFor="let nav of navs" mat-list-item [routerLink]="" [queryParams]="{course: current_course, select: nav.val}" (click)="setNav(nav.val)"><mat-icon>{{nav.ico}}</mat-icon>{{nav.val}}</a>
+                <a *ngIf="isAdmin()" mat-list-item [routerLink]="['/nav/courses/confirm-enroll']" [queryParams]="{course: current_course}"><mat-icon>check</mat-icon>Enrollment Confirmation</a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="course_viewer">
+
+            <div class="content">
+                <app-sequence [course]="current_course" *ngIf="isEqual('Home')"></app-sequence>
+                <app-info [current_course]="current_course" *ngIf="isEqual('Syllabus')"></app-info>
+                <app-modules [current_course]="current_course" *ngIf="isEqual('Modules')"></app-modules>
+                <app-grades [current_course]="current_course" *ngIf="isEqual('Grades') && !isAdmin()"></app-grades>
+                <app-grade-reports [current_course]="current_course" *ngIf="isEqual('Grades') && isAdmin()"></app-grade-reports>
+                <app-discussions [current_course]="current_course" *ngIf="isEqual('Discussions')"></app-discussions>
+                <app-rollcall [current_course]="current_course" *ngIf="isEqual('Roll Call')"></app-rollcall>
+                <app-discussion [current_course]="current_course" *ngIf="isEqual('Discussion')"></app-discussion>
+                <app-announcements [current_course]="current_course" *ngIf="isEqual('Announcements')"></app-announcements>
+                <app-document-viewer *ngIf="isEqual('ViewDocument')"></app-document-viewer>
+                <app-pages  [current_course]="current_course" *ngIf="isEqual('Page')"></app-pages>
+            </div>
+
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+</ng-container>

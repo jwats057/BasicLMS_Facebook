@@ -1,0 +1,11 @@
+<div mat-dialog-title>{{dialogData.title}}</div>
+<div mat-dialog-content>
+    <p>
+        {{dialogData.message}}
+    </p>
+</div>
+<mat-dialog-actions>
+  <span class="fill"></span>
+  <button mat-raised-button (click)="click_event(false)" cdkFocusInitial>No</button>
+  <button mat-raised-button (click)="click_event(true)">Yes</button>
+</mat-dialog-actions>

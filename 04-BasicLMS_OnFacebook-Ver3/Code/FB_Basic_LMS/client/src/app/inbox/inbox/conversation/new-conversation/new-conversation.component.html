@@ -1,0 +1,22 @@
+
+<h3 mat-dialog-title>New Discussion Editor</h3>
+<form [formGroup]="conversationForm">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Discussion Title</mat-label>
+    <input matInput type="text" formControlName="title" maxlength="100" required>
+    <mat-hint>The title of the new discussion, must be under 100 characters long.</mat-hint>
+  </mat-form-field>
+
+  <div>
+    <mat-label><strong>Discussion Description:</strong></mat-label>
+    <angular-editor formControlName="description" [config]="config"></angular-editor>
+    <mat-error *ngIf="conversationForm.controls['description'].invalid">{{getDescriptionError()}}</mat-error>
+  </div>
+
+</form>
+<mat-dialog-actions>
+  <span class="fill"></span>
+  <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+  <button [disabled]="conversationForm.invalid" (click)="pushDiscussion()" mat-raised-button color="primary">Create</button>
+</mat-dialog-actions>

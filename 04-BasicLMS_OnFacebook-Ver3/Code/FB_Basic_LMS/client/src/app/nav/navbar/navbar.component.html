@@ -1,0 +1,108 @@
+<!--  This is the main navigation bar for the app -->
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: black;">
+
+      <span>
+            <a [routerLink]="['home/']"><img src="https://www.fiu.edu/_assets/images/fiu-white-logo.png"></a>
+      </span>
+
+      <span>
+            <button [routerLink]="['dashboard/']" mat-button><mat-icon>dashboard</mat-icon>Dashboard</button>
+      </span>
+
+      <span *ngIf="loggedIn.value">
+            <button (click)="loadCourses()" mat-button [matMenuTriggerFor]="menu"><mat-icon>list</mat-icon>My Courses</button>
+
+            <mat-menu #menu="matMenu">
+                  <button *ngFor="let course of myCourses" [routerLink]="['courses/view-course']" [queryParams]="{course:course.id, select: 'Syllabus'}" mat-menu-item>
+                        <mat-icon>class</mat-icon>{{course.name}}
+                  </button>
+            </mat-menu>
+
+      </span>
+
+      <span>
+
+            <button [routerLink]="['/nav/courses/']" mat-button><mat-icon>chrome_reader_mode</mat-icon>Courses</button>
+      </span>
+
+      <span>
+            <button *ngIf="this.isAdmin() || loggedIn.value" [routerLink]="['inbox/']" mat-button><mat-icon>forum</mat-icon>Inbox</button>
+      </span>
+
+      <span>
+            <button [routerLink]="['helppage/']" mat-button><mat-icon>help_outline</mat-icon>Help</button>
+      </span>
+
+      <span class="fill"></span>
+
+      <span>
+            <button mat-raised-button *ngIf="loggedIn.value" [mat-menu-trigger-for]="fbMenu"> Profile </button>
+        <mat-menu #fbMenu="matMenu">
+          <button [routerLink]="['security/profile/']" mat-menu-item> Visit Profile </button>
+          <button (click)="doLogout()" mat-menu-item>
+            <mat-icon style="color: red;">power_settings_new</mat-icon>Log out</button>
+        </mat-menu>
+      </span>
+
+      <span>
+<!--            <button *ngIf="!loggedIn.value" (click)="loadCourses()" mat-raised-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon>Account</button>-->
+
+            <button (click)="loadCourses()" mat-raised-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon>Account</button>
+
+            <mat-menu #userMenu="matMenu" >
+                  <button *ngIf="!this.isAdmin() && !loggedIn.value" [routerLink]="['security/login/']" mat-menu-item>
+                        <mat-icon>fingerprint</mat-icon>Admin Login
+                  </button>
+
+<!--                  <button *ngIf="this.isAdmin()" mat-menu-item (click)="openAddCourseDialog()" class="add_button">-->
+<!--                        <mat-icon>add</mat-icon>Add Course-->
+<!--                  </button>-->
+
+                  <button *ngIf="this.isAdmin()" [routerLink]="['/nav/dashboard/logs']" mat-menu-item>
+                        Logs
+                  </button>
+
+                  <button *ngIf="this.isAdmin()" [routerLink]="['/nav/dashboard/manager']" mat-menu-item>
+                        <mat-icon>build</mat-icon>Manager
+                  </button>
+
+                  <button mat-menu-item *ngIf="!loggedIn.value && !this.isAdmin()" (click)="doLogin()">
+                     <mat-icon>person_add</mat-icon>Login with facebook
+                  </button>
+
+<!--                  <button *ngIf="!this.isAdmin() && !this.isRegistered" (click)="openRegisterStudentDialog()" mat-menu-item>-->
+<!--                        <mat-icon>person_add</mat-icon>REGISTER FROM FACEBOOK-->
+<!--                  </button>-->
+
+<!--                  <button [routerLink]="['security/register/']" mat-menu-item>-->
+<!--                        <mat-icon>person_add</mat-icon>Register-->
+<!--                  </button>-->
+
+                  <button *ngIf="this.isAdmin()" mat-menu-item [matMenuTriggerFor]="menu">
+                    <mat-icon>list</mat-icon>Manage Courses</button>
+
+                  <mat-menu #menu="matMenu">
+
+                    <button *ngFor="let course of adminCourses" [routerLink]="['courses/view-course']" [queryParams]="{course:course.id,select:'Home'}" mat-menu-item>
+                              <mat-icon>class</mat-icon>{{course.name}}
+                        </button>
+                  </mat-menu>
+
+                  <button *ngIf="this.isAdmin() && auth() > 0" [routerLink]="['security/admin-register/']" mat-menu-item>
+                        <mat-icon>verified_user</mat-icon>Admin Register
+                  </button>
+
+<!--                  <button *ngIf="isLoggedIn()" (click)="doLogout()" mat-menu-item>-->
+<!--                        <mat-icon style="color: red;">power_settings_new</mat-icon>Log out-->
+<!--                  </button>-->
+
+                  <button *ngIf="loggedIn.value || this.isAdmin()" (click)="doLogout()" mat-menu-item>
+                        <mat-icon style="color: red;">power_settings_new</mat-icon>Log out
+                  </button>
+
+            </mat-menu>
+      </span>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,31 @@
+
+<mat-card>
+  <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid ? authenticateUser() : null">
+    <h3 mat-card-title>Admin Login</h3>
+    <div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" type="email" matInput required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input formControlName="password" type="password" matInput required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="invalidCredentials">
+      <p class="error">Your credentials do not seem to be working. Try again.</p>
+    </div>
+
+    <div>
+      <button class="login" mat-flat-button color="primary">Login</button>
+    </div>
+  </form>
+</mat-card>

@@ -1,0 +1,21 @@
+<h3 mat-dialog-title>Quiz</h3>
+<main *ngIf="!loading">
+<mat-list>
+    <mat-list-item>
+        Due Date:{{" " + getDueDate()}}
+    </mat-list-item>
+    <mat-list-item>
+        Allowed Attempts:{{' ' + record.attempts}}
+    </mat-list-item>
+    <mat-list-item>
+        Attempts: {{record.attempted}}
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions>
+    <span class="fill"></span>
+    <button [disabled]="!hasTaken" (click)="goToResult()" mat-raised-button>Result</button>
+    <button (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+    <button [disabled]="!isOpen || !canTake" (click)="goToQuiz()" mat-raised-button color="primary">Go to Quiz</button>
+</mat-dialog-actions>
+</main>
+<mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>

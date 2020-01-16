@@ -1,0 +1,40 @@
+<!-- Discussion information and replying container -->
+<mat-card>
+
+<!--  <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>-->
+
+  <mat-card-header>
+    <mat-card-title>
+      <p [innerHTML]="this.title"></p>
+      <p [innerHTML]="this.description"></p>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-nav-list >
+    <a *ngIf="!replying" mat-list-item (click)="openEditor()"><mat-icon>reply</mat-icon>Reply</a>
+  </mat-nav-list>
+  <div *ngIf="replying" >
+    <mat-card-content>
+      <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+    </mat-card-content>
+
+    <mat-card-actions class="controls">
+      <button [disabled]="isMessageEmpty()" (click)="sendMessage()" mat-flat-button color='primary'>Submit</button>
+
+      <button (click)="closeEditor()" mat-stroked-button>Cancel</button>
+    </mat-card-actions>
+  </div>
+  <br>
+
+</mat-card>
+
+<!-- List posts in card containers -->
+<mat-card style="margin-bottom: 3px; margin-top: 3px" *ngFor="let message of messages.reverse()">
+  <mat-card-header>
+    <mat-card-title>{{message.user_name}}</mat-card-title>
+<!--    <mat-card-subtitle>{{message.user_name}}</mat-card-subtitle>-->
+    <mat-card-subtitle>{{message.date | date: 'medium'}}</mat-card-subtitle>
+
+  </mat-card-header>
+  <p style="margin-left: 30px" [innerHTML]="message.post"></p>
+</mat-card>

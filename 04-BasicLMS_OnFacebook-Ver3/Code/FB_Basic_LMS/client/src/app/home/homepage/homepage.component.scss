@@ -1,0 +1,59 @@
+.mat-app-background{
+  background-color: white;
+  height: 100%;
+}
+
+header{
+  background-color: #3f51b5;
+  height: 65px;
+  left: 5px;
+  font-size: 50px;
+  font-weight: 500;
+  top: 15px;
+  font-style: normal;
+
+}
+
+
+mat-card {
+  width: 80%;
+  padding: 1rem;
+  background-color: #c5dce9e0;
+  align-content: flex-start;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+
+mat-card-content{
+  padding-left: 20px;
+}
+
+mat-card-title{
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 30px;
+}
+//
+//mat-label {
+//  width: 80%;
+//  padding: 1rem;
+//  margin: auto;
+//  background-color: white;
+//}
+
+
+label{
+  display:block;
+  margin-top:20px;
+}
+
+button{
+  background: white;
+  margin-top:1rem;
+  width:50%;
+  padding:10px;
+  border-radius:5px;
+  font-weight: 700;
+  color:#181818;
+}

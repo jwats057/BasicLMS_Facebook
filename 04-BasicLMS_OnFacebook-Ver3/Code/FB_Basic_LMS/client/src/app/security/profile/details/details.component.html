@@ -1,0 +1,21 @@
+  <div class="card-deck-container">
+      <ng-container>
+    <mat-card class="example-card">
+    <mat-card-title> STUDENT INFO </mat-card-title>
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+    <mat-card-content *ngIf="!loading">
+      <p>
+        <strong>First Name: </strong>{{getUser().first_name}}
+        <br>
+        <strong>Last Name: </strong> {{getUser().last_name}}
+        <br>
+        <strong>Email: </strong>{{getUser().email}}
+        <br>
+        <strong>Phone: </strong>{{getUser().phone}}
+        <br>
+        <strong>Country: </strong>{{getUser().country}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+ </ng-container>
+    </div>

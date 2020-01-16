@@ -1,0 +1,44 @@
+
+mat-button-toggle, mat-button-toggle-group {
+    width: 100%;
+}
+
+mat-card {
+    margin: 1rem;
+    margin-left: 150px;
+    margin-right: 2%;
+}
+
+.controls button {
+    width: 50%;
+    margin: auto;
+    float: left;
+}
+
+.controls {
+    width: 100%;
+    min-height: 2rem;
+}
+
+.question {
+    margin-top: 5%;
+}
+
+.submit_right {
+    float: right;
+}
+
+div {
+    overflow: visible;
+}
+
+mat-card span button {
+    width: 100%;
+}
+.timer {
+    width: 80px;
+    margin: 18px;
+    margin-top: 3rem;
+    position: fixed;
+    z-index: 2;
+}

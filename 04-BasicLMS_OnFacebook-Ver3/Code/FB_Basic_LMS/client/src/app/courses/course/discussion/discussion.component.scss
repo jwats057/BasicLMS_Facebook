@@ -1,0 +1,26 @@
+.angular-editor-toolbar-set .angular-editor-button[title="Justify Left"],
+.angular-editor-toolbar-set .angular-editor-button[title="Justify Right"],
+.angular-editor-toolbar-set .angular-editor-button[title="Justify Full"],
+.angular-editor-toolbar-set .angular-editor-button[title="Justify Center"],
+.angular-editor-toolbar-set .angular-editor-button[title="Insert Image"],
+.angular-editor-toolbar-set .angular-editor-button[title="Text Color"],
+.angular-editor-toolbar-set .angular-editor-button[title="Background Color"]
+ {
+    display: none;
+}
+
+a {
+    cursor: pointer;
+}
+
+.controls button {
+    float: right;
+}
+
+mat-card {
+    margin-bottom: 1rem;
+}
+
+mat-nav-list mat-icon  {
+    margin-right: 0.5rem;
+}

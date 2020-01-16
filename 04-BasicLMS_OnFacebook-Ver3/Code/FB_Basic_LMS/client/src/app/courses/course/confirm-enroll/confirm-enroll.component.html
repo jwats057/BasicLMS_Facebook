@@ -1,0 +1,14 @@
+<mat-card>
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+    <h3>Confirm Enrollment</h3>
+    <p *ngIf="!loading && 1 > students.length">
+        No Pending Enrollments
+    </p>
+    <mat-nav-list>
+        <a (click)="openEnrollDialog(student)" mat-list-item *ngFor="let student of students">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+            <h4 mat-line>{{student.lname + ', ' + student.fname + ' - ' + student.email + ' | ' + student.phone}}</h4>
+        </a>
+    </mat-nav-list>
+    <p><strong>Number of students in waiting list: </strong>{{waiting}}</p>
+</mat-card>

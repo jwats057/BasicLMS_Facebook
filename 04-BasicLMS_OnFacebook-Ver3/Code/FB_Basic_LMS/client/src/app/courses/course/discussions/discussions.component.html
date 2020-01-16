@@ -1,0 +1,21 @@
+<!-- Container for discussion -->
+<mat-card>
+
+    <!-- lists all discussions and creates links to -->
+    <mat-nav-list *ngFor='let discussion of discussions'>
+        <a mat-list-item [routerLink]="" [queryParams]="{course: current_course, select:'Discussion', discussion: discussion.id, start: 0}">
+            <mat-icon>insert_comment</mat-icon>{{discussion.title}}
+        </a>
+    </mat-nav-list>
+
+    <!-- if there are not discussions tell the user -->
+    <div class="empty_message" *ngIf="1 > discussions.length">
+        There are no discussions.
+    </div>
+
+    <!-- Add discussion button -->
+    <mat-nav-list *ngIf="this.isAdmin()">
+        <a (click)="openDiscussionDialog()" mat-list-item class="add_button empty_message"><mat-icon>add</mat-icon>Add Discussion</a>
+    </mat-nav-list>
+
+</mat-card>

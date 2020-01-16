@@ -1,0 +1,139 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="newQuizForm">
+
+        <form [formGroup]="newQuizForm">
+
+            <mat-form-field style="width: 100%;" appearance="outline">
+                <mat-label>Quiz Name</mat-label>
+                <input matInput formControlName="title" type="text" maxlength="100" required>
+                <mat-hint>Enter a title for this quiz.</mat-hint>
+            </mat-form-field>
+
+            <mat-checkbox color="primary" (click)="timeCheck()" formControlName="isTimed">Timed</mat-checkbox>
+
+            <mat-form-field style="max-width: 80px" appearance="outline">
+                <mat-label>Minutes</mat-label>
+                <input matInput formControlName="time" type="number" step="1" min="1" required>
+            </mat-form-field>
+
+
+            <mat-checkbox color="primary" (click)="attemptsCheck()" formControlName="isUnlimited">Limit Number of Attempts</mat-checkbox>
+
+            <mat-form-field style="max-width: 100px" appearance="outline">
+                <mat-label>Attempts</mat-label>
+                <input matInput formControlName="attempts" type="number" step="1" min="1" required>
+            </mat-form-field>
+
+
+            <mat-checkbox color="primary" (click)="dueCheck()" formControlName="noDueDate">Set Due Date</mat-checkbox>
+
+            <mat-form-field class="fill" appearance="outline">
+                <mat-label>Quiz due date</mat-label>
+                <input matInput formControlName="dueDate" [min]="today" [matDatepicker]="picker" placeholder="Choose an due date" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field style="margin-left: 1rem;" appearance="outline">
+                <mat-label>Coins</mat-label>
+                <input matInput formControlName="coins" type="number" step="1" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="onNoClick()" mat-raised-button color="warn" style="width: 50%;">Cancel</button>
+                <button mat-raised-button color="primary" style="width: 50%;" matStepperNext>Next</button>
+            </div>
+
+        </form>
+
+    </mat-step >
+
+    <mat-step [stepControl]="questionsForm">
+
+        <mat-card class="empty_message" *ngIf="!enteringQuestion">
+            <mat-nav-list >
+                <a (click)="enteringQuestion = true;" mat-list-item class="add_button empty_message"><mat-icon>add</mat-icon>Add Question</a>
+            </mat-nav-list>
+        </mat-card>
+
+        <mat-card *ngIf="enteringQuestion">
+            <form [formGroup]="newQuestionForm">
+
+                <mat-form-field style="width:10%; margin-right: 2%;" appearance="outline">
+                    <mat-label>Value</mat-label>
+                    <input matInput formControlName="value" type="number" step="1" min="0" required>
+                </mat-form-field>
+
+                <mat-form-field style="width:88%;" appearance="outline">
+                    <mat-label>Question</mat-label>
+                    <input matInput formControlName="question" type="text" maxlength="100" required>
+                </mat-form-field>
+
+                
+
+                <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Option A</mat-label>
+                    <input matInput formControlName="A" type="text" required>
+                    <mat-hint>Required Option</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Option B</mat-label>
+                    <input matInput formControlName="B" type="text" required>
+                    <mat-hint>Required Option</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Option C</mat-label>
+                    <input matInput formControlName="C" type="text">
+                </mat-form-field>
+
+                <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Option D</mat-label>
+                    <input matInput formControlName="D" type="text">
+                </mat-form-field>
+
+                <mat-form-field style="width:100%;" appearance="outline">
+                    <mat-label>Answer</mat-label>
+                    <!--<input matInput formControlName="answer" type="number" step="1" max="4" min="1" required>-->
+                    <mat-select formControlName="answer">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngIf="newQuestionForm.value.A != ''" value="1">{{newQuestionForm.value.A}}</mat-option>
+                        <mat-option *ngIf="newQuestionForm.value.B != ''" value="2">{{newQuestionForm.value.B}}</mat-option>
+                        <mat-option *ngIf="newQuestionForm.value.C != ''" value="3">{{newQuestionForm.value.C}}</mat-option>
+                        <mat-option *ngIf="newQuestionForm.value.D != ''" value="4">{{newQuestionForm.value.D}}</mat-option>
+                    </mat-select>
+                    <mat-hint>Required, Select Correct Option</mat-hint>
+                </mat-form-field>
+                
+                <mat-error *ngIf="answerInvalid">Bad answer, select a valid answer!</mat-error>
+
+                <button [disabled]="newQuestionForm.invalid" (click)="addItem()" style="width: 100%;" mat-raised-button color="primary">Submit Question</button>
+
+            </form>
+        </mat-card>
+
+            <mat-card *ngFor="let item of items">
+                <mat-card-title>
+                        {{items.indexOf(item) + 1}}.{{item.question}}
+                </mat-card-title>
+
+                <mat-list>
+                    <mat-list-item><strong>Answer:</strong> {{ ' ' + getLetter(item.answer - 1)}}</mat-list-item>
+                    <mat-list-item><strong>Options:</strong></mat-list-item>
+                    <mat-list-item *ngFor="let option of item.options">
+                        ({{getLetter( item.options.indexOf(option) )}}){{' ' + option}}
+                    </mat-list-item>
+                </mat-list>
+
+                <button type="button" mat-raised-button color="warn" style="width: 100%;" (click)="removeItem(items.indexOf(item))">remove</button>
+            </mat-card>
+
+            <div>
+                <button type="button" mat-raised-button color="warn" style="width: 50%;" matStepperPrevious>Previous</button>
+                <button type="button" [disabled]="questionsForm.invalid || submitting" (click)="pushQuiz()" mat-raised-button color="primary" style="width: 50%;">Submit</button>
+            </div>
+    </mat-step>
+</mat-horizontal-stepper>
+
+

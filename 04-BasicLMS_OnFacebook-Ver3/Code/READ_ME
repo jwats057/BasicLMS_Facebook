@@ -1,0 +1,38 @@
+
+Dependencies:
+- Windows 10 (Licenses can be obtained from Azure Student with FIU account)
+- Visual Studio Code (https://code.visualstudio.com/)
+- NodeJs LTS (https://nodejs.org/en/)
+- npm (should come with NodeJs LTS)
+- Angular CLI (Global requirement) ($ npm install -g @angular/cli)
+- Angular Material (Project Requirement, Install in client folder) ($ ng add @angular/material)
+
+
+Set-up:
+- Extract Project Folder
+- Install NodeJs
+- Install Angular CLI
+- Install Openssl
+- Generate SSL key and certificate and replace them
+- Add '127.0.0.1 myhost.local' to 'C:\Windows\System32\drivers\etc\hosts'
+- run 'npm install' in both the client and backend project folders
+	- ~/client/
+	- ~/Backend/
+- Create Google Cloud Platform Project
+	- Add Firebase Realtime Database
+	- Generate access key (.json)
+	- rename access key to learnfiu_db.json
+	- move the access key to the backend folder
+- Create a new Facebook App at https://developers.facebook.com/
+	- enable Facebook Login
+	- Copy the 'APP ID' and replace the old one in two places:
+		- ~/client/src/app/app.config.ts
+		- ~/Backend/app/security/passport.strategy.js
+	
+
+- run 'ng serve' to run client in dev environment
+- run 'npm run dev' to run Backend in dev environment
+
+- add first admin account
+	- Go to https://myhost.local:4200/init
+

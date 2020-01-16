@@ -1,0 +1,19 @@
+<br>
+<form [formGroup]="newPageForm">
+    
+    <mat-form-field>
+        <mat-label>Page Title</mat-label>
+        <input matInput formControlName="title" type="text" maxlength="100" required>
+        <mat-hint>Enter a descriptive page title</mat-hint>
+    </mat-form-field>
+
+    <div>
+        <angular-editor formControlName=body [config]="config"></angular-editor>
+    </div>
+</form>
+<mat-dialog-actions>
+    <span class="fill"></span>
+    <button type="button" (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+    <button [disabled]="newPageForm.invalid || submitting" type="button" (click)="pushPage()" mat-raised-button color="primary">Create Page</button>
+</mat-dialog-actions>
+<br>

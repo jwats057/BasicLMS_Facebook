@@ -1,0 +1,18 @@
+<div class="mat-app-background">
+  <mat-card>
+    <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+    <h3>Roll Call</h3>
+    <mat-nav-list *ngIf="!this.isAdmin()">
+      <a mat-list-item *ngFor="let student of students">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <h4 mat-line>{{student.lname + ', ' + student.fname + ' - ' + student.email}}</h4>
+      </a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="this.isAdmin()">
+      <a (click)="openEnrollDialog(student)" mat-list-item *ngFor="let student of students">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <h4 mat-line>{{student.lname + ', ' + student.fname + ' - ' + student.email + ' | ' + student.phone}}</h4>
+      </a>
+    </mat-nav-list>
+  </mat-card>
+</div>

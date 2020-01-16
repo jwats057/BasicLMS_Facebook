@@ -1,0 +1,17 @@
+<mat-card class="example-card">
+  <mat-spinner *ngIf="loading" style="margin-left: auto; margin-right: auto;"></mat-spinner>
+  <mat-card-content *ngIf="!loading">
+    <p>
+      <strong>Instructor: </strong>{{instructor}}
+      <br>
+      <strong>Email: </strong>{{instructorEmail}}
+    </p>
+
+    <div [innerHTML]="courseData.description" >
+    </div>
+
+    <mat-nav-list *ngIf="this.isAdmin()">
+        <a (click)="openEditCourse()" mat-list-item class="add_button"><mat-icon>edit</mat-icon>Edit Course Details</a>
+    </mat-nav-list>
+  </mat-card-content>
+</mat-card>

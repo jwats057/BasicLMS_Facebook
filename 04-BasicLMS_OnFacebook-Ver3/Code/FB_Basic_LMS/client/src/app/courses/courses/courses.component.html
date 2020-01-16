@@ -1,0 +1,111 @@
+<mat-toolbar>
+ <mat-toolbar-row style="background-color: #3f51b5; color: #fafafa;
+          border-bottom-style: solid; border-bottom-width: 1px;
+          border-bottom-color: black;">
+  Library of Courses
+
+
+  <span>
+  <button mat-button [matMenuTriggerFor]="menu">Select Category</button>
+    <mat-menu #menu="matMenu">
+      <button (click)="setCategories('null')" mat-menu-item>None</button>
+      <button (click)="setCategories(cats.name)" *ngFor="let cats of getCategories()" mat-menu-item>{{cats.name}}</button>
+    </mat-menu>
+  </span>
+
+
+  <span>
+  <button mat-button [matMenuTriggerFor]="sort">Sort By</button>
+    <mat-menu #sort="matMenu">
+      <button (click)="setSort('name')" mat-menu-item>Course Name</button>
+      <button (click)="setSort('category')" mat-menu-item>Category</button>
+      <button (click)="setSort('endEnrollDate')" mat-menu-item>Enrollmet Deadline</button>
+    </mat-menu>
+  </span>
+
+
+
+  <span style="width: 75%; padding-left: 1rem;">
+    <form (keydown)="keyDownFunction($event)">
+      <mat-form-field style="width: 75%; height: 50px;">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="search" [matAutocomplete]="auto" [ngModelOptions]="{standalone: true}" maxlength="100">
+        <button mat-button matSuffix mat-icon-button aria-label="Search" (click)="doSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete">
+
+          <mat-option *ngFor="let text of predictions" [value]="text">
+              <span>{{text}}</span>
+          </mat-option>
+          <span><mat-spinner *ngIf="predicting" style="margin-left: auto; margin-top: 1rem; margin-right: auto;"></mat-spinner></span>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </span>
+
+
+  <span>
+      <mat-slide-toggle (click)="toggleOpen()">{{onlyOpen ? 'Open Courses' : 'All Courses'}}</mat-slide-toggle>
+  </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card *ngIf="loading">
+  <mat-spinner style="margin-left: auto; margin-top: 1rem; margin-right: auto;"></mat-spinner>
+</mat-card>
+
+<div *ngIf="!loading" style="background-color: white; padding-top: 1rem">
+  <mat-card  *ngIf="1 > courses.length">
+      <div style="margin-left: auto; margin-right: auto;">
+          No courses matched.
+      </div>
+  </mat-card>
+  <div class="course" *ngFor="let course of courses">
+    <mat-card style="height: 150px;">
+      <mat-card-header>
+        <mat-card-title>{{course.title}}</mat-card-title>
+        <mat-card-subtitle>
+          <mat-list>
+            <mat-list-item><h5>Deadline: {{course.endEnrollDate | date: 'dd/MM/yyyy'}}</h5></mat-list-item>
+            <mat-list-item><h5>Instructor: {{course.instructor}}</h5></mat-list-item>
+            <mat-list-item><h5>Open Spots: {{course.MAX_SIZE - course.size}}</h5></mat-list-item>
+          </mat-list>
+        </mat-card-subtitle>
+
+      </mat-card-header>
+      <mat-card-content style="width: 100%;">
+        <p [innerHTML]="course.description">
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+          <button [disabled]="!userLoggedIn() || !course.isOpen || isAdmin()" (click)="course.MAX_SIZE - course.size > 0 ?  register(course.id)
+           : openFullDialog(course.id)" mat-raised-button mat-button color="primary">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Container for pagination navigation -->
+<mat-card style="margin-bottom: 2rem;">
+    <mat-toolbar>
+        <span>
+            <button (click)="firstPage()" mat-stroked-button color="primary"><mat-icon>first_page</mat-icon></button>
+        </span>
+
+        <span><button [disabled]="!canBack()" (click)="back()" mat-stroked-button color="primary">
+            <mat-icon>navigate_before</mat-icon>Back
+        </button>
+        </span>
+
+        <span class="fill"></span>
+
+        <span><button [disabled]="!canNext()" (click)="next()" mat-stroked-button color="primary">
+            Next<mat-icon>navigate_next</mat-icon>
+        </button></span>
+
+        <span>
+            <button (click)="lastPage()" mat-stroked-button color="primary"><mat-icon>last_page</mat-icon></button>
+        </span>
+    </mat-toolbar>
+</mat-card>

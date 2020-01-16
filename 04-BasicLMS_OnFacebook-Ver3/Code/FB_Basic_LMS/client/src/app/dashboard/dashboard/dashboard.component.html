@@ -1,0 +1,23 @@
+<div class="mat-app-background">
+  <mat-toolbar>
+    <mat-toolbar-row style="background-color: #3f51b5; color: #fafafa;
+          border-bottom-style: solid; border-bottom-width: 1px;
+          border-bottom-color: black;">Dashboard
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div>
+    <div class="card-deck-container">
+      <ng-container *ngFor="let course of myCourses" fxLayout="row">
+          <mat-card  [ngStyle]="{'width':'300' + 'px'}">
+            <h1>{{course.name}}</h1>
+            <p>
+              <strong>Instructor: </strong> {{course.instructor_name}}
+              <br>
+            </p>
+            <a [routerLink]="['/nav/courses/view-course']" [queryParams]="{ course: course.id }" mat-button>Syllabus</a>
+            <hr>
+          </mat-card>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<br>
+<form [formGroup]="newEmbedForm">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Content Title</mat-label>
+        <input matInput formControlName="title" type="text" maxlength="100" required>
+        <mat-hint>Enter a descriptive title.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Embed Code</mat-label>
+        <input matInput formControlName="code" type="text" required>
+        <mat-hint>Paste the embed code here.</mat-hint>
+    </mat-form-field>
+
+    <mat-dialog-actions>
+        <span class="fill"></span>
+        <button type="button" (click)="onNoClick()" mat-raised-button color="warn">Cancel</button>
+        <button type="button" [disabled]="newEmbedForm.invalid || submitting" (click)="pushEmbed()" mat-raised-button color="primary">Create</button>
+    </mat-dialog-actions>
+    
+</form>
+<br>
