@@ -7,7 +7,7 @@ const firebase = require('firebase-admin');
 const firebaseAccountConfig = require('../learnfiu_db.json');
 firebase.initializeApp({
 	credential: firebase.credential.cert(firebaseAccountConfig),
-	databaseURL: 'https://learnfiu.firebaseio.com'
+	databaseURL: 'https://lms-senior-project.firebaseio.com/'
 });
 
 const passport = require('passport');

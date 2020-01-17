@@ -104,6 +104,11 @@ module.exports = (passport) => {
         await res.json(resp);
     });
 
+    router.post('/update-user', async (req, res, next) => {
+        const resp = await usersServices.updateUser(req.query.id, req.body);
+        await res.json(resp);
+    })
+
 
     return router;
 };

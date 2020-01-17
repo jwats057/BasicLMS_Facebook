@@ -53,6 +53,7 @@ class UsersService {
             }
         } catch (err) {
             console.error(err);
+            console.log("error adding student to students collection");
             return false;
         }
 
@@ -82,6 +83,25 @@ class UsersService {
             }
         } catch (err) {
             console.error(err);
+            return false;
+        }
+        return true;
+    }
+
+    async updateUser(id, user_info) {
+        try {
+            let user = await database.ref('/users/' + id).once('value');
+            if(user) {
+                await database.ref('/users').child(id).set({
+                    first_name: user_info.body.first_name.trim(),
+                    last_name: user_info.body.last_name.trim(),
+                    phone: user_info.body.phone.trim(),
+                    email: user_info.body.email.trim(),
+                    country: user_info.body.country.trim()
+                })
+            }
+        } catch (err) {
+            console.log(err);
             return false;
         }
         return true;
